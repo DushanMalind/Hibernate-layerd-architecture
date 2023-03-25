@@ -2,31 +2,26 @@ package lk.ijse.hibernate.layered;
 
 
 import lk.ijse.hibernate.layered.entity.Customer;
-import lk.ijse.hibernate.layered.projection.CustomerDetailDto;
-import lk.ijse.hibernate.layered.repository.CustomerRepository;
-import lk.ijse.hibernate.layered.util.SessionFactoryConfiguaration;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-
-import java.util.ArrayList;
-import java.util.List;
+import lk.ijse.hibernate.layered.service.CustomerService;
 
 public class Appliniler {
     public static void main(String[] args) {
 
 
-        Session session = SessionFactoryConfiguaration.getInstance().getSession();
-        Transaction transaction= session.beginTransaction();
+        CustomerService customerService = CustomerService
+                .getInstance();
+        Customer customer = getCustomerEntity();
 
+        customerService.saveCustomer(customer);
 
+        Customer existingCustomer = customerService.getCustomer(1L);
+        existingCustomer.setAddress("Matara");
 
-        CustomerRepository customerRepository=new CustomerRepository();
-        Customer customer=getCustomerEntity();
+        customerService.updateCustomer(existingCustomer);
 
-        customerRepository.saveCustomer(customer);
+       /* customerService.deleteCustomer(customer);*/
 
-        customerRepository = new CustomerRepository();
-        List<Customer> customers = customerRepository.getAllCustomers();
+       /* List<Customer> customers = customerService.getAllCustomers();
         for (Customer customer1 : customers) {
             System.out.println(customer1);
         }
@@ -43,7 +38,7 @@ public class Appliniler {
         for (CustomerDetailDto customer1 : jpqlCustomerProj) {
             System.out.println(customer1);
         }
-
+*/
     }
     private static Customer getCustomerEntity() {
         Customer customer = new Customer();
