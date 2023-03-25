@@ -2,13 +2,13 @@ package lk.ijse.hibernate.layered;
 
 
 import lk.ijse.hibernate.layered.entity.Customer;
-import lk.ijse.hibernate.layered.service.CustomerService;
+import lk.ijse.hibernate.layered.service.CustomerServiceImpl;
 
 public class Appliniler {
     public static void main(String[] args) {
 
 
-        CustomerService customerService = CustomerService
+        CustomerServiceImpl customerService = CustomerServiceImpl
                 .getInstance();
         Customer customer = getCustomerEntity();
 
