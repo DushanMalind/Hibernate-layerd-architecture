@@ -19,7 +19,7 @@ public class CustomerRepository {
     public CustomerRepository(){
         session= SessionFactoryConfiguaration.getInstance().getSession();
     }
-    public Long saveCustomer(Customer customer){
+ /*   public Long saveCustomer(Customer customer){
         Transaction transaction = session.beginTransaction();
 
         try {
@@ -35,7 +35,7 @@ public class CustomerRepository {
         }
 
 
-    }
+    }*/
 
     /*public boolean  updateCustomer(Customer customer){
         Transaction transaction = session.beginTransaction();
