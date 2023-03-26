@@ -1,6 +1,8 @@
 package lk.ijse.hibernate.layered.service;
 
+import lk.ijse.hibernate.layered.dto.CustomerDTO;
 import lk.ijse.hibernate.layered.entity.Customer;
+import lk.ijse.hibernate.layered.projection.CustomerDetailDto;
 import lk.ijse.hibernate.layered.repository.CustomerRepository;
 import lk.ijse.hibernate.layered.repository.impl.CustomerRepositoryImpl;
 import lk.ijse.hibernate.layered.util.SessionFactoryConfiguaration;
@@ -9,6 +11,7 @@ import org.hibernate.Transaction;
 
 import javax.persistence.Query;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class CustomerServiceImpl implements CustomerService {
@@ -29,7 +32,7 @@ public class CustomerServiceImpl implements CustomerService {
         customerRepository= CustomerRepositoryImpl.getInstance();
     }
 
-
+/*
     @Override
     public List<Customer> getAllCustomer() {
         session = SessionFactoryConfiguaration.getInstance()
@@ -37,6 +40,47 @@ public class CustomerServiceImpl implements CustomerService {
         customerRepository.setSession(session);
         ArrayList<Customer>customerArrayList= (ArrayList<Customer>) customerRepository.getAll();
         return customerArrayList;
+    }*/
+
+    @Override
+    public List<CustomerDTO> getAllCustomer() {
+        session = SessionFactoryConfiguaration.getInstance()
+                .getSession();
+        customerRepository.setSession(session);
+        List<Customer>allCustomer=customerRepository.getAll();
+        List<CustomerDTO>customerDTOS=new ArrayList<>();
+        for (Customer customer:allCustomer){
+            customerDTOS.add(new CustomerDTO(customer.getId(),customer.getName(),customer.getAddress(),customer.getAge()));
+        }
+        return  customerDTOS;
+    }
+
+    @Override
+    public List<CustomerDTO> getAllJPQLCustomers() {
+        session = SessionFactoryConfiguaration.getInstance()
+                .getSession();
+        customerRepository.setSession(session);
+        List<Customer>allCustomer=customerRepository.getAllJPQL();
+        List<CustomerDTO>customerDTOS=new ArrayList<>();
+        for (Customer customer:allCustomer){
+            customerDTOS.add(new CustomerDTO(customer.getId(),customer.getName(),customer.getAddress(),customer.getAge()));
+        }
+        return  customerDTOS;
+    }
+
+    @Override
+    public List<CustomerDetailDto> getAllCustomerProjection() {
+        session = SessionFactoryConfiguaration.getInstance()
+                .getSession();
+        customerRepository.setSession(session);
+//        List<Customer>allCustomer=customerRepository.getAllProjection();
+        List<CustomerDetailDto>customerDTOS=new ArrayList<>();
+        for (CustomerDetailDto customer:customerDTOS){
+
+            return Collections.singletonList(customer);
+        }
+
+        return  customerDTOS;
     }
 
     public Long saveCustomer(Customer customer){

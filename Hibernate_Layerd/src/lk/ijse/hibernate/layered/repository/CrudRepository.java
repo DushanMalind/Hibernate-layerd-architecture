@@ -9,6 +9,10 @@ public interface CrudRepository <T,ID> extends SuperRepository{
 
     List<T> getAll();
 
+    List<T>  getAllJPQL();
+
+    List<T> getAllProjection();
+
     ID save(T object);
 
     void  update(T object);

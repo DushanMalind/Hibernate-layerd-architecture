@@ -41,6 +41,24 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         return list;
     }
 
+    @Override
+    public List<Customer> getAllJPQL() {
+        String sql = "SELECT C FROM Customer AS C"; // alias
+        Query query = session.createQuery(sql);
+        List list = query.list();
+        session.close();
+        return list;
+    }
+
+    @Override
+    public List<Customer> getAllProjection() {
+        String sql = "SELECT new lk.ijse.hibernate.layered.projection.CustomerDetailDto(C.name, C.address, C.age) FROM Customer AS C"; // In here the error was not defining the new keyword
+        Query query = session.createQuery(sql);
+        List list = query.list();
+        session.close();
+        return list;
+    }
+
     public Long save(Customer customer){
         return (Long) session.save(customer);
 

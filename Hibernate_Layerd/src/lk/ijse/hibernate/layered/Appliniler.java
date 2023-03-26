@@ -1,7 +1,9 @@
 package lk.ijse.hibernate.layered;
 
 
+import lk.ijse.hibernate.layered.dto.CustomerDTO;
 import lk.ijse.hibernate.layered.entity.Customer;
+import lk.ijse.hibernate.layered.projection.CustomerDetailDto;
 import lk.ijse.hibernate.layered.service.CustomerServiceImpl;
 
 import java.util.List;
@@ -20,12 +22,23 @@ public class Appliniler {
 
        /* customerService.updateCustomer(existingCustomer);*/
 
-        List<Customer>customers=customerService.getAllCustomer();
-        for (Customer customer1:customers){
+        List<CustomerDTO>customerDTOS=customerService.getAllCustomer();
+        for (CustomerDTO customer1:customerDTOS){
             System.out.println(customer1);
         }
 
-       /* customerService.deleteCustomer(customer);*/
+        List<CustomerDTO>jpl=customerService.getAllJPQLCustomers();
+        for (CustomerDTO customer1:jpl){
+            System.out.println(customer1);
+        }
+
+        List<CustomerDetailDto>customerDetailDtoList=customerService.getAllCustomerProjection();
+        for (CustomerDetailDto customer1:customerDetailDtoList){
+            System.out.println(customer1);
+        }
+
+
+//         customerService.deleteCustomer(customer);
 
        /* List<Customer> customers = customerService.getAllCustomers();
         for (Customer customer1 : customers) {
@@ -49,7 +62,7 @@ public class Appliniler {
     private static Customer getCustomerEntity() {
         Customer customer = new Customer();
         // Sets Customer table's primary key
-        customer.setId(1L);
+
 
         // Defines the NameIdentifier - Embeddable object data
 
@@ -58,11 +71,13 @@ public class Appliniler {
 //        customer.setName(nameIdentifier);
 
         // Sets the customer address
-        customer.setAddress("Galle");
+        customer.setId(5L);
+        customer.setName("Lanasa");
+        customer.setAddress("Mathara");
         // Sets the customer salary
 //        customer.setSalary(30000.00);
         // Sets the customer age
-        customer.setAge(22);
+        customer.setAge(24);
 
 
 
