@@ -7,6 +7,10 @@ import lk.ijse.hibernate.layered.util.SessionFactoryConfiguaration;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import javax.persistence.Query;
+import java.util.ArrayList;
+import java.util.List;
+
 public class CustomerServiceImpl implements CustomerService {
 
     private static CustomerServiceImpl customerService;
@@ -26,6 +30,14 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
 
+    @Override
+    public List<Customer> getAllCustomer() {
+        session = SessionFactoryConfiguaration.getInstance()
+                .getSession();
+        customerRepository.setSession(session);
+        ArrayList<Customer>customerArrayList= (ArrayList<Customer>) customerRepository.getAll();
+        return customerArrayList;
+    }
 
     public Long saveCustomer(Customer customer){
         Transaction transaction = session.beginTransaction();
@@ -94,4 +106,6 @@ public class CustomerServiceImpl implements CustomerService {
             return false;
         }
     }
+
+
 }

@@ -6,6 +6,10 @@ import lk.ijse.hibernate.layered.entity.Customer;
 import lk.ijse.hibernate.layered.repository.CrudRepository;
 import lk.ijse.hibernate.layered.repository.CustomerRepository;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class CustomerRepositoryImpl implements CustomerRepository {
@@ -28,6 +32,15 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         this.session=session;
     }
 
+    @Override
+    public List<Customer> getAll() {
+        String sqlQuery="FROM Customer";
+        Query query=session.createQuery(sqlQuery);
+        List list= query.list();
+        session.close();
+        return list;
+    }
+
     public Long save(Customer customer){
         return (Long) session.save(customer);
 
@@ -47,15 +60,14 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     }
 
 
-    /*public List<Customer>getAllCustomers(){
+   /* public List<Customer> getAllCustomers(){
         String sqlQuery="FROM Customer";
         Query query=session.createQuery(sqlQuery);
-        List list= query.list();
+        List list= ((org.hibernate.query.Query<?>) query).list();
         session.close();
         return list;
-    }
-
-    public List<Customer>getAllJPQLCustomers(){
+    }*/
+  /*  public List<Customer>getAllJPQLCustomers(){
         String sql="SELECT C FROM Customer AS C";
         Query query= session.createQuery(sql);
         List list=query.list();

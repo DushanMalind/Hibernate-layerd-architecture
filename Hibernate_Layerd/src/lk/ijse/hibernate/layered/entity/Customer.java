@@ -62,5 +62,13 @@ public class Customer {
         this.age = age;
     }
 
-
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", age=" + age +
+                '}';
+    }
 }

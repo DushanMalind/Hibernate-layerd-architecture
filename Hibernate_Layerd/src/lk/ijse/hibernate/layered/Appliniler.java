@@ -4,12 +4,13 @@ package lk.ijse.hibernate.layered;
 import lk.ijse.hibernate.layered.entity.Customer;
 import lk.ijse.hibernate.layered.service.CustomerServiceImpl;
 
+import java.util.List;
+
 public class Appliniler {
     public static void main(String[] args) {
 
 
-        CustomerServiceImpl customerService = CustomerServiceImpl
-                .getInstance();
+        CustomerServiceImpl customerService = CustomerServiceImpl.getInstance();
         Customer customer = getCustomerEntity();
 
         customerService.saveCustomer(customer);
@@ -17,7 +18,12 @@ public class Appliniler {
         Customer existingCustomer = customerService.getCustomer(1L);
         existingCustomer.setAddress("Matara");
 
-        customerService.updateCustomer(existingCustomer);
+       /* customerService.updateCustomer(existingCustomer);*/
+
+        List<Customer>customers=customerService.getAllCustomer();
+        for (Customer customer1:customers){
+            System.out.println(customer1);
+        }
 
        /* customerService.deleteCustomer(customer);*/
 
